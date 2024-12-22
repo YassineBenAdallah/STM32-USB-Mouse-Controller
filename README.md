@@ -1,89 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 STM32 Accelerometer-Based Mouse HID 🔥</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <h1>🔥 STM32 Accelerometer-Based Mouse HID 🔥</h1>
-    <h2>Overview</h2>
-    <p>This project implements a Human Interface Device (HID) using an STM32F4 microcontroller. The onboard accelerometer is used to simulate mouse movements, and a GPIO button serves as a mouse click input.</p>
+# 🔥 STM32 Accelerometer-Based Mouse HID 🔥
 
-    <h2>Features</h2>
-    <ul>
-        <li>Simulates mouse movements based on accelerometer readings.</li>
-        <li>Provides left-click functionality through a GPIO button.</li>
-        <li>Includes calibration for the accelerometer to ensure accurate mouse behavior.</li>
-        <li>USB communication using the HID protocol.</li>
-    </ul>
+## Overview
+This project implements a Human Interface Device (HID) using an STM32F4 microcontroller. The onboard accelerometer is used to simulate mouse movements, and a GPIO button serves as a mouse click input.
 
-    <h2>Hardware Requirements</h2>
-    <ul>
-        <li>STM32F4 Discovery Board</li>
-        <li>Onboard MEMS Accelerometer</li>
-        <li>USB connection to the PC</li>
-        <li>Push-button (connected to GPIO PA0)</li>
-        <li>LED (optional, connected to GPIOD Pin 13)</li>
-    </ul>
+## Features
+- Simulates mouse movements based on accelerometer readings.
+- Provides left-click functionality through a GPIO button.
+- Includes calibration for the accelerometer to ensure accurate mouse behavior.
+- USB communication using the HID protocol.
 
-    <h2>Software Requirements</h2>
-    <ul>
-        <li>STM32CubeMX</li>
-        <li>STM32 HAL Library</li>
-        <li>USB Device Middleware (HID)</li>
-    </ul>
+## Hardware Requirements
+- STM32F4 Discovery Board
+- Onboard MEMS Accelerometer
+- USB connection to the PC
+- Push-button (connected to GPIO PA0)
+- LED (optional, connected to GPIOD Pin 13)
 
-    <h2>Code Description</h2>
-    <p>The main program initializes the accelerometer, GPIOs, SPI, and USB. Calibration is performed to define the range of accelerometer values. During the main loop, the program:</p>
-    <ol>
-        <li>Reads accelerometer data.</li>
-        <li>Calculates mouse movements based on the calibrated values.</li>
-        <li>Sends mouse movement data over USB to the PC.</li>
-        <li>Handles button press events for left-click functionality.</li>
-    </ol>
+## Software Requirements
+- STM32CubeMX
+- STM32 HAL Library
+- USB Device Middleware (HID)
 
-    <h2>Calibration</h2>
-    <p>The <code>ACCELRO_Calibrate</code> function collects accelerometer readings over 5 seconds to determine the minimum and maximum values for both X and Y axes. These values are used to normalize accelerometer input for mouse movement.</p>
+## Code Description
+The main program initializes the accelerometer, GPIOs, SPI, and USB. Calibration is performed to define the range of accelerometer values. During the main loop, the program:
+1. Reads accelerometer data.
+2. Calculates mouse movements based on the calibrated values.
+3. Sends mouse movement data over USB to the PC.
+4. Handles button press events for left-click functionality.
 
-    <h2>Mouse HID Structure</h2>
-    <p>The <code>mouseHID</code> structure contains the following fields:</p>
-    <ul>
-        <li><code>button</code>: Mouse button state (0: no click, 1: left-click).</li>
-        <li><code>mouse_x</code>: X-axis movement.</li>
-        <li><code>mouse_y</code>: Y-axis movement.</li>
-        <li><code>wheel</code>: Scroll wheel (not used in this project).</li>
-    </ul>
+## Calibration
+The `ACCELRO_Calibrate` function collects accelerometer readings over 5 seconds to determine the minimum and maximum values for both X and Y axes. These values are used to normalize accelerometer input for mouse movement.
 
-    <h2>Interrupts</h2>
-    <p>GPIO interrupt is configured for the button on <code>PA0</code>. When pressed, the callback function sets a flag to simulate a mouse click.</p>
+## Mouse HID Structure
+The `mouseHID` structure contains the following fields:
+- `button`: Mouse button state (0: no click, 1: left-click).
+- `mouse_x`: X-axis movement.
+- `mouse_y`: Y-axis movement.
+- `wheel`: Scroll wheel (not used in this project).
 
-    <h2>USB Communication</h2>
-    <p>The USB HID reports are sent using the <code>USBD_HID_SendReport</code> function. Each report contains the button state and mouse movement data.</p>
+## Interrupts
+GPIO interrupt is configured for the button on `PA0`. When pressed, the callback function sets a flag to simulate a mouse click.
 
-    <h2>References</h2>
-    <ul>
-        <li>STM32F4 HAL Documentation</li>
-        <li>USB HID Specification</li>
-        <li>STM32CubeMX Configuration Guide</li>
-    </ul>
+## USB Communication
+The USB HID reports are sent using the `USBD_HID_SendReport` function. Each report contains the button state and mouse movement data.
 
-    <h2>License</h2>
-    <p>This project is licensed under the terms found in the LICENSE file provided with the software. If no LICENSE file is included, the project is provided AS-IS.</p>
-</body>
-</html>
+## References
+- STM32F4 HAL Documentation
+- USB HID Specification
+- STM32CubeMX Configuration Guide
+
+## License
+This project is licensed under the terms found in the LICENSE file provided with the software. If no LICENSE file is included, the project is provided AS-IS.
